@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header bg-green-500">
-        <h1 className="text-2xl text-center p-[10px] font-bold">Convertisseur YouTube en MP3</h1>
+        <h1 className="text-2xl text-center p-[10px] font-bold underline decoration-red-500">Convertisseur YouTube en MP3</h1>
         <VideoConverter />
       </header>
     </div>

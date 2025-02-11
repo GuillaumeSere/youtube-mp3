@@ -4,29 +4,35 @@ const VideoConverter = () => {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [downloadLink, setDownloadLink] = useState("");
+    const [error, setError] = useState("");
     const apiKey = "47d04ba1b8mshb0310ce1ae30157p1e4be2jsnf6968e96e5e8";
 
     const handleConvert = async () => {
         if (!url) return;
         setLoading(true);
+        setError("");
         try {
             const response = await fetch(`https://youtube-mp310.p.rapidapi.com/download/mp3?url=${encodeURIComponent(url)}`, {
                 headers: {
                     'X-RapidAPI-Key': apiKey,
                 },
             });
+            if (!response.ok) {
+                throw new Error('URL non valide');
+            }
             const data = await response.json();
             setDownloadLink(data.downloadUrl);
         } catch (error) {
             console.error("Erreur lors de la conversion", error);
+            setError("URL non valide");
         }
         setLoading(false);
     };
 
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white p-10">
-            <h1 className="text-2xl p-[10px] font-bold mb-4 ">YouTube MP3 Converter</h1>
-            <div className='text-2xl max-w-4xl text-center p-10 m-[50px] bg-gray-800 text-white rounded-lg shadow-lg'>
+            <h1 className="text-2xl p-[10px] font-bold mb-4 text-indigo-500">YouTube <span className='text-red-500'> MP3</span> Converter</h1>
+            <div className='text-2xl max-w-4xl text-center p-10 m-[50px] bg-gray-800 text-white rounded-lg shadow-2xl'>
                 YouTube MP3 Converter est un outil en ligne rapide et simple
                 permettant de convertir des vidéos YouTube en fichiers MP3.
                 Il suffit d'entrer l'URL d'une vidéo YouTube, de cliquer sur
@@ -37,7 +43,7 @@ const VideoConverter = () => {
             <input
                 type="text"
                 placeholder="Entrez l'URL YouTube"
-                className="w-full max-w-md p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full max-w-md p-2 rounded bg-gray-800 text-white border border-gray-700 shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
             />
@@ -48,6 +54,11 @@ const VideoConverter = () => {
             >
                 {loading ? "Conversion en cours..." : "Convertir"}
             </button>
+            {error && (
+                <div className="mt-4 text-red-500">
+                    {error}
+                </div>
+            )}
             {downloadLink && (
                 <div className="mt-4">
                     <a href={downloadLink} className="text-green-400 underline" target="_blank" rel="noopener noreferrer">
