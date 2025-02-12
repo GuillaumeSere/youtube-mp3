@@ -32,7 +32,7 @@ const VideoConverter = () => {
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white p-10">
             <h1 className="text-2xl p-[10px] font-bold mb-4 text-indigo-500">YouTube <span className='text-red-500'> MP3</span> Converter</h1>
-            <div className='text-2xl max-w-4xl text-center p-10 m-[50px] bg-gray-800 text-white rounded-lg shadow-2xl'>
+            <div className='text-xm max-w-4xl text-center p-10 m-[25px] bg-gray-800 text-white rounded-lg shadow-2xl md:text-2xl'>
                 YouTube MP3 Converter est un outil en ligne rapide et simple
                 permettant de convertir des vidéos YouTube en fichiers MP3.
                 Il suffit d'entrer l'URL d'une vidéo YouTube, de cliquer sur
